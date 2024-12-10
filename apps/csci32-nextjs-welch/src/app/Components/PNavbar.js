@@ -1,25 +1,21 @@
 const navbarList = [
   {
     title: 'Home',
-    href: '/',
+    href: '/public',
   },
 
   {
-    title: 'All Books',
-    href: '/allbooks',
+    title: 'Others Books',
+    href: '/otherbooks',
   },
   {
-    title: 'All Authors',
-    href: '/allAuthors',
+    title: 'book reccomendations',
+    href: '/bookReccomendation',
     },
-  {
-    title: 'Create/Publish',
-    href: '/createpublish',
-  },
-  {
-  title: 'Public',
-  href: '/public',
-},
+    {
+      title: 'Private',
+      href: '/',
+      },
 ]
 
 export default function Navbar() {

@@ -4,6 +4,7 @@ export type HeaderProps = {
   children: React.ReactNode
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   className?: string
+  onClick?: () => void
 }
 export function Header({ variant = 'h2', children, className = '' }: HeaderProps) {
   return variant === 'h1' ? (
