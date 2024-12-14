@@ -1,4 +1,4 @@
-import { BookProperties } from '../../context/authorContext'
+import { BookProperties } from '../../../context/authorContext'
 import { Variants } from '@repo/ui/variant'
 import { Sizes } from '@repo/ui/size'
 import { Button } from '@repo/ui/button'

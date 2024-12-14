@@ -1,3 +1,4 @@
+'use client'
 import { Flex } from '@repo/ui/flex'
 import { useContext } from 'react'
 import { AuthorContext } from '../../../context/authorContext'

@@ -1,7 +1,7 @@
 import { Flex } from '@repo/ui/flex'
 import { useContext } from 'react'
 import { AuthorContext } from '../../../context/authorContext'
-import BookDescription from './bookselect'
+import BookDescription from '../BookPageComponent/bookselect'
 
 export default function BookDescriptionResults() {
   const { authors } = useContext(AuthorContext)

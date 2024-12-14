@@ -47,6 +47,8 @@ export default function Input({
     />
   )
 }*/
+/*
+'use client'
 import { getInputSizesStyles, Sizes } from './size'
 import { HTMLInputTypeAttribute, useState } from 'react'
 import { getVariantBorderStyles, getVariantTextStyles, getVariantOutlineStyles, Variants } from './variant'
@@ -111,4 +113,105 @@ export default function Input({
       }
     />
   )
+}*/
+'use client';
+import React, { useState, useEffect } from 'react';
+import { getInputSizesStyles, Sizes } from './size';
+import {
+  getVariantBorderStyles,
+  getVariantTextStyles,
+  getVariantOutlineStyles,
+  Variants,
+} from './variant';
+import { getCommonInputStyles } from './tokens';
+import { noop } from 'lodash';
+
+interface InputProps {
+  variant?: Variants;
+  size?: Sizes;
+  placeholder?: string;
+  type?: React.HTMLInputTypeAttribute;
+  value?: any; // Ensure the value is a string for input fields
+  onChange?: (newValue: any) => void;
+  onEnter?: (newValue: string) => void;
+  defaultValue?: string;
+  name: string;
+  className?: string;
+  id: string;
 }
+
+export default function Input({
+  variant = Variants.Primary,
+  size = Sizes.Medium,
+  value,
+  name,
+  id,
+  defaultValue = '',
+  className = '',
+  onChange,
+  onEnter = noop,
+  type = 'text',
+  placeholder,
+}: InputProps) {
+  const [internalValue, setInternalValue] = useState(value ?? defaultValue);
+
+  // Keep internalValue in sync with value prop
+  useEffect(() => {
+    if (value !== undefined) {
+      setInternalValue(value);
+    }
+  }, [value]);
+
+  const sizeCssClasses = getInputSizesStyles(size);
+  const variantOutlineCssClasses = getVariantOutlineStyles(variant);
+  const variantBorderCssClasses = getVariantBorderStyles(variant);
+  const variantInputTextCssClasses = getVariantTextStyles(variant);
+  const commonCssClasses = getCommonInputStyles();
+
+  function handleKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      onEnter(internalValue);
+    }
+  }
+
+ /* function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.currentTarget.value;
+    setInternalValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
+  }
+*/
+/*
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.currentTarget.value;
+    setInternalValue(newValue);
+
+
+  if (onChange) {
+    onChange(e);
+  }
+}*/
+function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  const newValue = e.currentTarget.value;
+  setInternalValue(newValue);
+
+  if (onChange) {
+    onChange(newValue); // Pass only the string value to `onChange`
+  }
+}
+
+  return (
+    <input
+      className={`${sizeCssClasses} ${variantBorderCssClasses} ${variantInputTextCssClasses} ${variantOutlineCssClasses} ${commonCssClasses} ${className}`}
+      name={name}
+      id={id}
+      value={internalValue}
+      placeholder={placeholder}
+      type={type}
+      onKeyUp={handleKeyUp}
+      onChange={handleChange}
+    />
+  );
+}
+

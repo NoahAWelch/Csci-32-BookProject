@@ -17,6 +17,10 @@ const navbarList = [
     href: '/createpublish',
   },
   {
+    title: 'Search',
+    href: '/search',
+  },
+  {
   title: 'Public',
   href: '/public',
 },

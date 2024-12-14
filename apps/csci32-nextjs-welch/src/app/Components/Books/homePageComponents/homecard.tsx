@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { BookProperties } from '../../context/authorContext'
+import { BookProperties } from '../../../context/authorContext'
 
 export type AuthorCardProps = {
   author_id: string

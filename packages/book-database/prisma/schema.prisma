@@ -17,6 +17,7 @@ model User {
   password           String?
   book Book[]
   authors Author[]
+  //comments Comment[]
 }
 
 model Book {
@@ -41,15 +42,27 @@ genre String?
 book_rating        Int @default(0)
 book_synopsis   String?
 book_reccomendation String?
+//comments String?
 }
+
+//model Comment {
+//comment_id        String          @id @default(cuid())
+//user_id String
+//author_id String
+//comments String?
+//author Author   @relation(fields: [author_id], references: [author_id])
+//user User       @relation(fields: [user_id], references: [user_id])
+//}
 
 model Author {
   author_id          String @id @default(cuid())
   author_name        String?
   author_description String?
   books Book[]
+  is_deleted Boolean @default(false)
   user User       @relation(fields: [user_id], references: [user_id])
   user_id         String
+    flag Boolean?
   book_properties BookProperties[]
 }
 

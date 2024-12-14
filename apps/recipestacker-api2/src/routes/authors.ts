@@ -9,6 +9,7 @@ export const UpsertBookPropertyTypeboxType = Type.Object({
   genre: Type.Optional(Type.String()),
   book_synopsis: Type.Optional(Type.String()),
   book_rating: Type.Optional(Type.Number()),
+  //comments: Type.Optional(Type.String()),
   book_id: Type.Optional(Type.String()),
   book_name: Type.Optional(Type.String()),
   book_description: Type.Optional(Type.String()),
@@ -18,6 +19,8 @@ export const UpsertBookPropertyTypeboxType = Type.Object({
 export const UpdateAuthorTypeBoxType = Type.Object({
   author_name: Type.Optional(Type.String()),
   author_description: Type.Optional(Type.String()),
+  flag: Type.Optional(Type.Boolean()),
+  delete: Type.Optional(Type.Boolean()),
   book_properties: Type.Optional(Type.Array(UpsertBookPropertyTypeboxType)),
 });
 
@@ -25,7 +28,27 @@ export const UpdateAuthorTypeBoxType = Type.Object({
 export const CreateAuthorTypeboxType = Type.Object({
   author_name: Type.String(),
   author_description: Type.String(),
+  flag: Type.Optional(Type.Boolean()),
   book_properties: Type.Optional(Type.Array(UpsertBookPropertyTypeboxType)),
+});
+
+export const CreateUserTypeboxType = Type.Object({
+  user_name: Type.String(),
+  password: Type.String(),
+  email: Type.Optional(Type.String()),
+  user_id: Type.String(),
+});
+
+export const CreateCommentTypeboxType = Type.Object({
+  comments: Type.String(),
+  book_id: Type.String(),
+});
+
+export const CommentTypeboxType = Type.Object({
+  comments: Type.String(),
+  book_id: Type.String(),
+  user_id: Type.String(),
+  comment_id: Type.String(),
 });
 
 // Schema for book properties in response
@@ -34,6 +57,7 @@ export const BookPropertyTypeboxType = Type.Object({
   book_reccomendation: Type.Optional(Type.String()),
   book_synopsis: Type.Optional(Type.String()),
   genre: Type.Optional(Type.String()),
+  //comments: Type.Optional(Type.String()),
   book_id: Type.Optional(Type.String()),
   book: Type.Object({
     book_id: Type.Optional(Type.String()),
@@ -42,11 +66,19 @@ export const BookPropertyTypeboxType = Type.Object({
   }),
 });
 
+export const BookType = Type.Object({
+  user_name: Type.String(),
+  password: Type.String(),
+  email: Type.Optional(Type.Boolean()),
+  user_id: Type.String(),
+});
+
 // Schema for an author response
 export const AuthorType = Type.Object({
   author_id: Type.String(),
   author_name: Type.Union([Type.String(), Type.Null()]),
   author_description: Type.Union([Type.String(), Type.Null()]),
+  flag: Type.Optional(Type.Boolean()),
   book_properties: Type.Array(BookPropertyTypeboxType),
   user_id: Type.Optional(Type.Union([Type.String(), Type.Null()])), // Can be optional if not always included
 });
@@ -161,13 +193,34 @@ const author: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   return fastify.recipeService.createOneAuthor({
     author_name: request.body.author_name,
     author_description: request.body.author_description,
+    flag: request.body.flag,
     book_properties: request.body.book_properties,
   })
 },
 )
 
-
-
+fastify.withTypeProvider<TypeBoxTypeProvider>().post(
+  '/users',
+  {
+    schema: {
+      tags: ['create a author'],
+      description: 'Endpoint to create an author',
+      body: CreateUserTypeboxType,
+      response: {
+        200: Type.Object({ author_id: Type.String() }),
+        400: Type.Object({ message: Type.String() }),
+      },
+    },
+  },
+  async function (request, reply) {
+return fastify.recipeService.createOneUser({
+  user_name: request.body.user_name,
+  password: request.body.password,
+  email: request.body.email,
+  user_id: request.body.user_id,
+})
+},
+)
 
 /*
   fastify.withTypeProvider<TypeBoxTypeProvider>().get(
@@ -214,6 +267,33 @@ const author: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     }
   );*/
 
+
+  fastify.withTypeProvider<TypeBoxTypeProvider>().put(
+    '/authors/:id',
+    {
+      schema: {
+        tags: ['Endpoint: Update a author'],
+        description: 'Endpoint to update one author',
+        body: UpdateAuthorTypeBoxType,
+        response: {
+          200: Type.Object({ author_id: Type.String() }),
+          400: Type.Object({ message: Type.String() }),
+        },
+      },
+    },
+    async function (request: any, reply) {
+      return fastify.recipeService.updateOneAuthor({
+        author_id: request.params.id,
+        author_name: request.body.author_name,
+        author_description: request.body.author_description,
+        flag: request.body.flag,
+        is_deleted: request.body.delete,
+        book_properties: request.body.book_properties,
+      })
+    },
+  )
+
+
   fastify.withTypeProvider<TypeBoxTypeProvider>().get(
     '/Book/:user_id/top-books',
     {
@@ -259,9 +339,32 @@ const author: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     }
   );
 
+  fastify.withTypeProvider<TypeBoxTypeProvider>().post(
+    '/books',
+    {
+      schema: {
+        tags: ['create a author'],
+        description: 'Endpoint to create an author',
+        body: CreateCommentTypeboxType,
+        response: {
+          200: Type.Object({ author_id: Type.String() }),
+          400: Type.Object({ message: Type.String() }),
+        },
+      },
+    },
+    async function (request, reply) {
+  return fastify.recipeService.createOneComment({
+
+    book_id: request.body.book_id,
+    comments: request.body.comments
+  })
+  },
+  )
+
 
 };
 export default author;
 // "dev": "export NODE_ENV='development' && tsx watch src/app.ts"
+
 
 

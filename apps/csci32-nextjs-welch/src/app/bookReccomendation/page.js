@@ -1,9 +1,9 @@
 'use client'
-
+import { AuthorProvider } from "../context/authorContext"
 import PNavbar from '../Components/PNavbar'
 import PageTitle from '../Components/PageTitle'
 import Footer from '../Components/Footer'
-
+import PublicBookResults from "../Components/Books/BookPageComponent/publicBookResults"
 import React from 'react'
 
 export default function BookReccomendation() {
@@ -16,7 +16,9 @@ export default function BookReccomendation() {
  <PageTitle title="Book reccomendation" />
 <PNavbar/>
         <div className="flex flex-col p-12 m-40 transition-all bg-gray-300 shadow-lg border border-gray-300 rounded-lg hover:scale-110 hover:bg-red-400 bg-gradient-to-r from-yellow-600 to-red-600' grow" >
-
+<AuthorProvider>
+  <PublicBookResults/>
+</AuthorProvider>
         </div>
       </div>
       <Footer />
