@@ -1,4 +1,4 @@
-import AuthorForm from '../Misc/authorForm'
+/*import AuthorForm from '../Misc/authorForm'
 import { AuthorContext } from '../../../context/authorContext'
 import { Wrapper } from '@repo/ui/wrapper'
 import { Flex } from '@repo/ui/flex'
@@ -29,7 +29,7 @@ export default function AuthorHome() {
       <Flex className="flex-col gap-y-8 mt-8">{showAuthorForm ? <AuthorForm /> : <UpdateForm />}</Flex>
     </Wrapper>
   )
-}
+}*/
 /*import { AuthorForm } from './authorForm'
 import { AuthorContext } from '../../context/authorContext'
 import { Wrapper } from '@repo/ui/wrapper'
