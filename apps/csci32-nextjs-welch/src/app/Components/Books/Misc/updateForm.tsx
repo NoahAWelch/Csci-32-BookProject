@@ -31,7 +31,6 @@ export function UpdateForm() {
     },
   ])*/
 
-
 /*
   const bookPropertyChange = (index: number, field: string, value: string | number) => {
   const updatedBooks = bookProperties.map((book, idx) =>
@@ -530,10 +529,12 @@ import { CreateAuthorProps, UpdateAuthorProps, createAuthor, updateAuthor } from
 export function UpdateForm() {
   const { setShowAuthorForm, mutate, author, authorId } = useContext(AuthorContext)
 
-  const [authorFormData, setAuthorFormData] = useState(author || {
-    author_name: '',
-    author_description: '',
-  })
+  const [authorFormData, setAuthorFormData] = useState(
+    author || {
+      author_name: '',
+      author_description: '',
+    },
+  )
 
   const [bookProperties, setBookProperties] = useState<BookProperties[]>(
     author?.book_properties || [
@@ -548,7 +549,7 @@ export function UpdateForm() {
         book_synopsis: '',
         book_reccomendation: '',
       },
-    ]
+    ],
   )
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -578,7 +579,7 @@ export function UpdateForm() {
       author_description: authorDescription,
       book_properties: newBookProperties,
       book: [],
-      flag: false
+      flag: false,
     }
 
     try {
@@ -611,9 +612,7 @@ export function UpdateForm() {
               id="author-name"
               placeholder="Enter an author name"
               value={authorFormData.author_name}
-              onChange={(newName) =>
-                setAuthorFormData({ ...authorFormData, author_name: newName })
-              }
+              onChange={(newName) => setAuthorFormData({ ...authorFormData, author_name: newName })}
             />
           </Field>
           <Field>
@@ -633,19 +632,14 @@ export function UpdateForm() {
           </Field>
         </FieldGroup>
         {bookProperties.map((bookProperty, index) => (
-          <FieldGroup
-            key={index}
-            className="ml-4 bg-gray-200 shadow-md rounded-lg p-4"
-          >
+          <FieldGroup key={index} className="ml-4 bg-gray-200 shadow-md rounded-lg p-4">
             <Flex>
               <Label>Book {index + 1}</Label>
               {bookProperties.length > 1 && (
                 <Button
                   variant={Variants.TertiaryReview}
                   onClick={() => {
-                    const updatedBookProperties = bookProperties.filter(
-                      (_, idx) => idx !== index
-                    )
+                    const updatedBookProperties = bookProperties.filter((_, idx) => idx !== index)
                     setBookProperties(updatedBookProperties)
                   }}
                 >
@@ -656,75 +650,111 @@ export function UpdateForm() {
 
             <Input
               name={`book-name-${index}`}
-               id="author-description"
+              id="author-description"
               value={bookProperty.book?.book_name}
               placeholder="Enter a book name"
               onChange={(newBookName) => {
-                const updatedBooks = [...bookProperties || null]
+                //const updatedBooks = [...(bookProperties || null || [])]
 
-                updatedBooks[index].book.book_name = newBookName
-                setBookProperties(updatedBooks)
+                //updatedBooks[index].book.book_name = newBookName
+                // setBookProperties(updatedBooks)
+                const updatedBooks = [...(bookProperties || [])]
+
+                if (updatedBooks[index]?.book) {
+                  updatedBooks[index].book.book_name = newBookName
+                  setBookProperties(updatedBooks)
+                }
               }}
             />
 
             <Input
               name={`book-description-${index}`}
-               id="author-description"
+              id="author-description"
               value={bookProperty.book.book_description}
               placeholder="Enter a book description"
               onChange={(newBookDescription) => {
-                const updatedBooks = [...bookProperties]
-                updatedBooks[index].book.book_description = newBookDescription
-                setBookProperties(updatedBooks)
+                //  const updatedBooks = [...bookProperties ]
+                //   updatedBooks[index].book.book_description = newBookDescription
+                //  setBookProperties(updatedBooks)
+                const updatedBooks = [...(bookProperties || [])]
+
+                if (updatedBooks[index]?.book) {
+                  updatedBooks[index].book.book_description = newBookDescription
+                  setBookProperties(updatedBooks)
+                }
               }}
             />
 
             <Input
               name={`book-unit-${index}`}
-               id="author-description"
+              id="author-description"
               value={bookProperty.genre}
               placeholder="Enter a book genre"
               onChange={(newGenre) => {
-                const updatedBooks = [...bookProperties]
-                updatedBooks[index].genre = newGenre
-                setBookProperties(updatedBooks)
+                //   const updatedBooks = [...bookProperties]
+                //   updatedBooks[index].genre = newGenre
+                //  setBookProperties(updatedBooks)
+                const updatedBooks = [...(bookProperties || [])]
+
+                if (updatedBooks[index]?.book) {
+                  updatedBooks[index].book.book_description = newGenre
+                  setBookProperties(updatedBooks)
+                }
               }}
             />
 
             <Input
               name={`book-rating-${index}`}
-               id="author-description"
+              id="author-description"
               value={bookProperty.book_rating}
               placeholder="Enter a book rating"
               type="number"
               onChange={(newRating) => {
-                const updatedBooks = [...bookProperties]
-                updatedBooks[index].book_rating = Number(newRating)
-                setBookProperties(updatedBooks)
+                // const updatedBooks = [...bookProperties]
+                // updatedBooks[index].book_rating = Number(newRating)
+                // setBookProperties(updatedBooks)
+                const updatedBooks = [...(bookProperties || [])]
+
+                if (updatedBooks[index]?.book) {
+                  updatedBooks[index].book.book_description = newRating
+                  setBookProperties(updatedBooks)
+                }
               }}
             />
 
             <Input
               name={`book-reccomendation-${index}`}
-               id="author-description"
+              id="author-description"
               value={bookProperty.book_reccomendation}
               placeholder="Enter a book recommendation"
               onChange={(newRec) => {
-                const updatedBooks = [...bookProperties]
-                updatedBooks[index].book_reccomendation = newRec
-                setBookProperties(updatedBooks)
+                //const updatedBooks = [...bookProperties]
+                // updatedBooks[index].book_reccomendation = newRec
+                //setBookProperties(updatedBooks)
+                const updatedBooks = [...(bookProperties || [])]
+
+                if (updatedBooks[index]?.book) {
+                  updatedBooks[index].book.book_description = newRec
+                  setBookProperties(updatedBooks)
+                }
               }}
             />
 
             <Input
               name={`book-synopsis-${index}`}
-               id="author-description"
+              id="author-description"
               value={bookProperty.book_synopsis}
               placeholder="Enter a book synopsis"
               onChange={(newSynopsis) => {
-                const updatedBooks = [...bookProperties]
-                updatedBooks[index].book_synopsis = newSynopsis
-                setBookProperties(updatedBooks)
+                //   const updatedBooks = [...bookProperties]
+                //  updatedBooks[index].book_synopsis = newSynopsis
+                //  setBookProperties(updatedBooks)
+                const updatedBooks = [...(bookProperties || [])]
+
+                if (updatedBooks[index]?.book) {
+                  updatedBooks[index].book.book_description = newSynopsis
+                  setBookProperties(updatedBooks)
+                }
               }}
             />
           </FieldGroup>
