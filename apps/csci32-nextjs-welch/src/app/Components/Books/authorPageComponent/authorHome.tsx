@@ -15,25 +15,18 @@ export default function AuthorHome() {
   const { showAuthorForm, setShowAuthorForm } = useContext(AuthorContext)
   return (
     <Wrapper>
-        <Header variant="h1" className="text-center my-1">Welcome! Create your Authors and Books here!
-        </Header>
-        <Button
-          variant={Variants.Secondary2}
-          onClick={() => {
-            setShowAuthorForm(!showAuthorForm)
-          }}
-        >
-          {showAuthorForm ? 'Update Authors' : 'Create Author/Book'}
-        </Button>
-        <Flex className="flex-col gap-y-8 mt-8">
-        {showAuthorForm ? (
-          <AuthorForm />
-        ) : (
-
-          <UpdateForm/>
-        )}
-      </Flex>
-
+      <Header variant="h1" className="text-center my-1">
+        Welcome! Create your Authors and Books here!
+      </Header>
+      <Button
+        variant={Variants.Secondary2}
+        onClick={() => {
+          setShowAuthorForm(!showAuthorForm)
+        }}
+      >
+        {showAuthorForm ? 'Update Authors' : 'Create Author/Book'}
+      </Button>
+      <Flex className="flex-col gap-y-8 mt-8">{showAuthorForm ? <AuthorForm /> : <UpdateForm />}</Flex>
     </Wrapper>
   )
 }

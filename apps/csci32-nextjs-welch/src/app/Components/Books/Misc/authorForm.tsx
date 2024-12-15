@@ -1,5 +1,6 @@
 import Input from '@repo/ui/input'
 import { Flex } from '@repo/ui/flex'
+import React from 'react'
 import { Label } from '@repo/ui/label'
 import { Field } from '@repo/ui/field'
 import { FieldGroup } from '@repo/ui/fieldGroup'
@@ -10,7 +11,7 @@ import { Header } from '@repo/ui/header'
 import { AuthorContext } from '../../../context/authorContext'
 import { CreateAuthorProps, UpdateAuthorProps, createAuthor, updateAuthor } from '../../../hook/useAuthors'
 
-export function AuthorForm() {
+export default function AuthorForm() {
   const { setShowAuthorForm, mutate } = useContext(AuthorContext)
   const [authorFormData, setAuthorFormData] = useState({
     author_name: '',
@@ -209,5 +210,5 @@ export function AuthorForm() {
       </div>
     )
   }
-  return AuthorForm
+  //  return AuthorForm
 }
