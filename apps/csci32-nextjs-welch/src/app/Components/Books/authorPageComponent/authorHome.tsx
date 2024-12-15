@@ -1,4 +1,4 @@
-import { AuthorForm } from '../Misc/authorForm'
+import AuthorForm from '../Misc/authorForm'
 import { AuthorContext } from '../../../context/authorContext'
 import { Wrapper } from '@repo/ui/wrapper'
 import { Flex } from '@repo/ui/flex'
