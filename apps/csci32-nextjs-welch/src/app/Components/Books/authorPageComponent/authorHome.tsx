@@ -1,4 +1,4 @@
-/*import AuthorForm from '../Misc/authorForm'
+import AuthorForm from '../Misc/authorForm'
 import { AuthorContext } from '../../../context/authorContext'
 import { Wrapper } from '@repo/ui/wrapper'
 import { Flex } from '@repo/ui/flex'
@@ -7,8 +7,6 @@ import { Button } from '@repo/ui/button'
 import { Variants } from '@repo/ui/variant'
 import { Header } from '@repo/ui/header'
 import React from 'react'
-import AuthorSearch from './authorSearch'
-import AuthorResults from './authorResults'
 import { UpdateForm } from '../Misc/updateForm'
 
 export default function AuthorHome() {
@@ -29,7 +27,8 @@ export default function AuthorHome() {
       <Flex className="flex-col gap-y-8 mt-8">{showAuthorForm ? <AuthorForm /> : <UpdateForm />}</Flex>
     </Wrapper>
   )
-}*/
+}
+
 /*import { AuthorForm } from './authorForm'
 import { AuthorContext } from '../../context/authorContext'
 import { Wrapper } from '@repo/ui/wrapper'
