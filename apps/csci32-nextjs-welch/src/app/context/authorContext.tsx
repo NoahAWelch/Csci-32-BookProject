@@ -174,62 +174,61 @@ const authorProvider = ({ children }: { children: ReactNode }) => {
 export { authorContext, authorProvider } */
 
 'use client'
-import React, { createContext, ReactNode, useState } from 'react';
-import { useAuthors } from '../hook/useAuthors';
+import React, { createContext, ReactNode, useState } from 'react'
+import { useAuthors } from '../hook/useAuthors'
 
 export type Book = {
-  book_id?: string;
-  book_name: string;
-  book_description: string;
-//comment?: string;
-};
+  book_id?: string
+  book_name: string
+  book_description: string
+  //comment?: string;
+}
 
-export type User ={
+export type User = {
   user_id: string
   user_name: string
-email?: string
-password: string
+  email?: string
+  password: string
 }
 
 export type BookProperties = {
-  book: Book;
-  book_id: string;
-  genre: string;
-  book_reccomendation: string | null;
-  book_rating: number | null;
-  book_synopsis: string;
-
-};
+  book: Book
+  book_id: string
+  genre: string
+  book_reccomendation: string | null
+  book_rating: number | null
+  book_synopsis: string
+}
 
 export type AuthorType = {
-  author_id: string;
-  author_name: string;
-  author_description: string;
-  flag: boolean;
- // comments?: Comment[];
-  book_properties: BookProperties[];
-};
+  author_id: string
+  author_name: string
+  author_description: string
+  flag: boolean
+  // comments?: Comment[];
+  book_properties: BookProperties[]
+}
 
 export type AuthorContextType = {
-  authors: AuthorType[];
-  mutate: () => void;
-  authorNameQuery: string;
-  setAuthorNameQuery: (query: string) => void;
-  books: string[];
-  removeBook: (book_name: string) => void;
-  setBooks: (books: string[]) => void;
-  showAuthorForm: boolean;
-  setShowAuthorForm: (show: boolean) => void;
+  authors: AuthorType[]
+  mutate: () => void
+  authorNameQuery: string
+  setAuthorNameQuery: (query: string) => void
+  books: string[]
+  removeBook: (book_name: string) => void
+  setBooks: (books: string[]) => void
+  showAuthorForm: boolean
+  setShowAuthorForm: (show: boolean) => void
   authorId: string | null
   setAuthorId: (id: string | null) => void
   author: AuthorType | null
   setAuthor: (author: AuthorType | null) => void
-  removeAuthor: (author_id: string) => void; // Ensure removeAuthor expects a string
+  removeAuthor: (author_id: string) => void // Ensure removeAuthor expects a string
   userId: string | null
   setUserId: (id: string | null) => void
   user: User | null
   setUser: (user: User | null) => void
-};
+}
 
 const AuthorContext = createContext<AuthorContextType>({
   authors: [],
@@ -250,13 +249,13 @@ const AuthorContext = createContext<AuthorContextType>({
   setUser: () => {},
   userId: null,
   setUserId: () => {},
-});
+})
 
 export const AuthorProvider = ({ children }: { children: ReactNode }) => {
-  const [authors, setAuthors] = useState<AuthorType[]>([]); // Add state for authors
-  const [showAuthorForm, setShowAuthorForm] = useState(false);
-  const [authorNameQuery, setAuthorNameQuery] = useState('');
-  const [books, setBooks] = useState<string[]>([]);
+  const [authors, setAuthors] = useState<AuthorType[]>([]) // Add state for authors
+  const [showAuthorForm, setShowAuthorForm] = useState(false)
+  const [authorNameQuery, setAuthorNameQuery] = useState('')
+  const [books, setBooks] = useState<string[]>([])
   const [authorId, setAuthorId] = useState<string | null>(null)
   const [author, setAuthor] = useState<AuthorType | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
@@ -265,28 +264,28 @@ export const AuthorProvider = ({ children }: { children: ReactNode }) => {
   const { data: authorsFromApi, mutate } = useAuthors({
     author_name: authorNameQuery,
     books: books.join(','),
-  });
+  })
 
   const removeBook = (book_name: string) => {
-    const updatedBooks = books.filter((book) => book !== book_name);
-    setBooks(updatedBooks);
-  };
+    const updatedBooks = books.filter((book) => book !== book_name)
+    setBooks(updatedBooks)
+  }
 
   const removeAuthor = (author_id: string) => {
-    const updatedAuthors = authors.filter((author) => author.author_id !== author_id);
-    setAuthors(updatedAuthors); // Update the authors state with the filtered authors
-    mutate(); // Call mutate to re-fetch data if necessary
-  };
+    const updatedAuthors = authors.filter((author) => author.author_id !== author_id)
+    setAuthors(updatedAuthors) // Update the authors state with the filtered authors
+    mutate() // Call mutate to re-fetch data if necessary
+  }
 
   // Sort authors by book_rating (descending) and limit to top 10 books
   const sortedAuthors = Array.isArray(authorsFromApi)
     ? authorsFromApi.map((author) => ({
         ...author,
         book_properties: author.book_properties
-          ?.sort((a, b) => (b.book_rating || 0) - (a.book_rating || 0)) // Sort by book_rating (descending)
+          ?.sort((a: BookProperties, b: BookProperties) => (b.book_rating || 0) - (a.book_rating || 0)) // Sort by book_rating (descending)
           .slice(0, 10), // Take top 10 books (optional)
       }))
-    : [];
+    : []
 
   return (
     <AuthorContext.Provider
@@ -313,7 +312,7 @@ export const AuthorProvider = ({ children }: { children: ReactNode }) => {
     >
       {children}
     </AuthorContext.Provider>
-  );
-};
+  )
+}
 
-export { AuthorContext };
+export { AuthorContext }
