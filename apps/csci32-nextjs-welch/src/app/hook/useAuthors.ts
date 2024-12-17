@@ -99,10 +99,10 @@ async function putHelper({ path, params }: { path: string; params: UpdateAuthorP
 export function getAuthor(author_id: string) {
   return fetcher({ path: `/authors/${author_id}` })
 }
-
+/*
 export function deleteAuthor(author_id: string) {
-  return putHelper({ path: `/authors/${author_id}`, params: {delete?: false })
-}
+  return putHelper({ path: `/authors/${author_id}`, params: {delete: false })
+}*/
 
 async function fetcher({ path, urlParams }: { path: string; urlParams?: string }) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BOOK_API_URL}${path}${urlParams ? `?${urlParams}` : ''}`, {
