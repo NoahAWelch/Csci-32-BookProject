@@ -4,7 +4,7 @@ import { AuthorContext, BookProperties } from '../../../context/authorContext'
 import { useContext, useState } from 'react'
 import { Variants } from '@repo/ui/variant'
 import { Sizes } from '@repo/ui/size'
-import { deleteAuthor } from '../../../hook/useAuthors'
+//import { deleteAuthor } from '../../../hook/useAuthors'
 export type AuthorCardProps = {
   author_id: string
   author_name: string | null
@@ -44,7 +44,7 @@ export default function AuthorCard({ author_description, author_name, book_prope
                     size={Sizes.XSMALL}
                     variant={Variants.Secondary}
                     onClick={async () => {
-                      await deleteAuthor(author_id)
+                      //  await deleteAuthor(author_id)
                       mutate()
                       alert(`Author${author_name} deleted`)
                     }}
