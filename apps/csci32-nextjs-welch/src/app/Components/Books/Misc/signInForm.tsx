@@ -1,50 +1,49 @@
-import React, { useState } from 'react';
-import  Input  from '@repo/ui/input';
-import { Button } from '@repo/ui/button';
-import { Field } from '@repo/ui/field';
-import { FieldGroup } from '@repo/ui/fieldGroup';
-import { Flex } from '@repo/ui/flex';
-import { Header } from '@repo/ui/header';
-import { Label } from '@repo/ui/label';
-import { Variants } from '@repo/ui/variant';
+import React, { useState } from 'react'
+import Input from '@repo/ui/input'
+import { Button } from '@repo/ui/button'
+import { Field } from '@repo/ui/field'
+import { FieldGroup } from '@repo/ui/fieldGroup'
+import { Flex } from '@repo/ui/flex'
+import { Header } from '@repo/ui/header'
+import { Label } from '@repo/ui/label'
+import { Variants } from '@repo/ui/variant'
 
 const SignInForm = () => {
   const [signInData, setSignInData] = useState({
     user_name: '',
     password: '',
     email: '',
-  });
-  const [loading, setLoading] = useState(false);
+  })
+  const [signing, setSigning] = useState(false)
 
   const handleInputChange = (field: string, value: string) => {
-    setSignInData((prev) => ({ ...prev, [field]: value }));
-  };
+    setSignInData((prev) => ({ ...prev, [field]: value }))
+  }
 
   const handleSignIn = async () => {
-    setLoading(true);
+    setSigning(true)
 
     try {
-      console.log('Attempting sign-in with:', signInData);
+      console.log('Attempting sign-in with:', signInData)
 
-      // Mock sign-in process. Replace with your real API call.
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      alert(`Welcome back, ${signInData.user_name}!`);
+      alert(`Welcome back, ${signInData.user_name}!`)
     } catch (error) {
-      console.error('Sign-in failed:', error);
-      alert('Sign-in failed. Please try again.');
+      console.error('Sign-in failed:', error)
+      alert('Sign-in failed. Please try again.')
     } finally {
-      setLoading(false);
+      setSigning(false)
     }
-  };
+  }
 
   return (
     <div>
       <Header variant="h3">Sign In</Header>
       <form
         onSubmit={(e) => {
-          e.preventDefault();
-          handleSignIn();
+          e.preventDefault()
+          handleSignIn()
         }}
         className="flex flex-col gap-4"
       >
@@ -52,9 +51,8 @@ const SignInForm = () => {
           <Field>
             <Label>Username</Label>
             <Input
-            name=""
-            id="a"
-
+              name=""
+              id="a"
               placeholder="Enter your username"
               value={signInData.user_name}
               onChange={(value) => handleInputChange('user_name', value)}
@@ -64,7 +62,7 @@ const SignInForm = () => {
             <Label>Password</Label>
             <Input
               id="a"
-            name=""
+              name=""
               type="password"
               placeholder="Enter your password"
               value={signInData.password}
@@ -75,7 +73,7 @@ const SignInForm = () => {
             <Label>Email (optional)</Label>
             <Input
               id="a"
-            name=""
+              name=""
               type="email"
               placeholder="Enter your email"
               value={signInData.email}
@@ -85,13 +83,13 @@ const SignInForm = () => {
         </FieldGroup>
 
         <Flex className="justify-end gap-2">
-          <Button type="submit" variant={Variants.Primary} >
-            {loading ? 'Signing In...' : 'Sign In'}
+          <Button type="submit" variant={Variants.Primary}>
+            {signing ? 'Signing In...' : 'Sign In'}
           </Button>
         </Flex>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignInForm;
+export default SignInForm

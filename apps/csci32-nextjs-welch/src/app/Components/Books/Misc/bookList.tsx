@@ -18,17 +18,3 @@ export function BookList() {
     </Flex>
   )
 }
-
-
-
-
-     /* {authors.map((author) => (
-        <Tag
-          key={author.author_id}  // Use author_id as the key
-          variant={Variants.TertiaryReview}
-          onClickX={() => removeAuthor(author.author_id)}  // Pass author_id to removeAuthor
-        >
-          {author.author_name}  // Display author_name instead of the whole author object
-        </Tag>
-      ))}*/
-

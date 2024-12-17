@@ -7,7 +7,7 @@ import { AuthorContext } from '../../../context/authorContext'
 import { useContext } from 'react'
 
 export default function BookSearch() {
-  const { setBooks, setAuthorNameQuery, books } = useContext(AuthorContext || "")
+  const { setBooks, setAuthorNameQuery, books } = useContext(AuthorContext || '')
   return (
     <>
       <Header className="justify-between">Search Books</Header>
@@ -17,12 +17,12 @@ export default function BookSearch() {
           <Input
             name="book-search-query"
             id="book-query"
-            //value={"" || newBook}
             onEnter={(newBook) => {
-              setBooks([...books, newBook || ""])
+              setBooks([...books, newBook || ''])
             }}
           />
         </Field>
-        </Flex>
-        </>
-        )}
+      </Flex>
+    </>
+  )
+}
