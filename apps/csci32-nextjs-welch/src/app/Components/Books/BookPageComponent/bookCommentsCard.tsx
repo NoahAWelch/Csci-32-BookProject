@@ -59,9 +59,17 @@ export default function Comments() {
           </Button>
         </Flex>
       </form>
-      <div>
-        <CommentResults />
-      </div>
+      <div></div>
     </div>
   )
 }
+/* <Flex className="justify-end gap-2">
+          <Button type="submit" variant={Variants.Secondary2}>
+            Submit
+          </Button>
+        </Flex>
+      </form>
+      <div>
+        //<CommentResults />
+      </div>
+    </div> */
